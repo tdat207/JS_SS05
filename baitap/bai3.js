@@ -1,46 +1,57 @@
-let bookCodeList = [];
-let bookNameList = [];
-let stockList = [];
+let bookIds = [];
+let bookNames = [];
+let inventoryQuantity = [];
 
-let totalType = Number(prompt("Hôm nay có bao nhiêu loại sách cần kiểm tra:"));
+let total = Number(prompt("Có bao nhiêu loại sách cần kiểm tra bổ sung hôm nay?"));
 
 let i = 0;
-while (i < totalType) {
-    let code = prompt("Nhập mã sách " + (i + 1));
-    let name = prompt("Nhập tên sách " + (i + 1));
-    let stock = Number(prompt("Nhập số lượng tồn kho"));
+while (i < total) {
+    let id;
+    do {
+        id = prompt("Nhập mã sách thứ " + (i + 1) + ":");
+    } while (id === "");
 
-    bookCodeList[i] = code;
-    bookNameList[i] = name;
-    stockList[i] = stock;
+    let name;
+    do {
+        name = prompt("Nhập tên sách thứ " + (i + 1) + ":");
+    } while (name === "");
+
+    let quantity;
+    do {
+        quantity = Number(prompt("Nhập số lượng tồn kho hiện tại:"));
+    } while (isNaN(quantity) || quantity < 0);
+
+    bookIds.push(id);
+    bookNames.push(name);
+    inventoryQuantity.push(quantity);
 
     i++;
 }
 
-console.log("Danh sách cần xem xét bổ sung:", totalType, "loại");
+console.log("Danh sách sách cần xem xét bổ sung (" + bookIds.length + " loại):");
 
-for (let i = 0; i < bookCodeList.length; i++) {
+for (let i = 0; i < bookIds.length; i++) {
     console.log(
         (i + 1) +
-        ". Mã: " + bookCodeList[i] +
-        " - Tên: " + bookNameList[i] +
-        " - Còn: " + stockList[i] + " bản"
+        ". Mã: " + bookIds[i] +
+        " - Tên: " + bookNames[i] +
+        " - Còn: " + inventoryQuantity[i] + " bản"
     );
 }
 
 let lowStockCount = 0;
-for (let i = 0; i < stockList.length; i++) {
-    if (stockList[i] <= 5) {
+for (let i = 0; i < inventoryQuantity.length; i++) {
+    if (inventoryQuantity[i] < 5) {
         lowStockCount++;
     }
 }
 
-let emptyStock = "";
-for (let i = 0; i < stockList.length; i++) {
-    if (stockList[i] === 0) {
-        emptyStock += bookCodeList[i] + " ";
+let outOfStockCodes = "";
+for (let i = 0; i < inventoryQuantity.length; i++) {
+    if (inventoryQuantity[i] === 0) {
+        outOfStockCodes += bookIds[i] + " ";
     }
 }
 
-console.log("Số sách có tồn kho ≤ 5 bản:", lowStockCount, "loại");
-console.log("Các mã sách đã hết hàng:", emptyStock);
+console.log("Số sách có tồn kho < 5 bản:", lowStockCount, "loại");
+console.log("Các mã sách đã hết hàng (0 bản):", outOfStockCodes);
