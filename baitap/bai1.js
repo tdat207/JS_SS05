@@ -1,15 +1,15 @@
-let numberBook = [];
-let bookCount = Number(prompt("Bạn muốn trả bao nhiêu sách:"));
+let bookList = [];
+let total = prompt("Nhập số sách trả hôm nay:");
 
-for (let i = 0; i < bookCount; i++) {
-    let newBook = prompt("Nhập tên cuốn sách " + (i + 1) + ":");
-    numberBook.push(newBook);
-    alert("Thêm sách thành công!");
+for (let i = 1; i <= total; i++) {
+    let bookName = prompt("Tên sách thứ " + i + ":");
+    bookList[bookList.length] = bookName;
 }
 
-console.log("Tổng số sách đã được trả:", numberBook.length);
-console.log("Danh sách đã trả:");
+console.log("Số sách đã trả là:", total);
+console.log("Các sách đã trả:");
 
-for (let i = 0; i < numberBook.length; i++) {
-    console.log((i + 1) + ". " + numberBook[i]);
+for (let i = 0; i < bookList.length; i++) {
+    console.log(i + 1 + " - " + bookList[i]);
 }
+
